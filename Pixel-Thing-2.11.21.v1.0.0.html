@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+    
+    <!--Pixel Thing v1.0.0-->
+    
+    <!--Creation Date-->
+    <!--2.11.21-->
+    
+    <!--Completion date (for v1.0.0 at least)-->
+    <!--2.13.21-->
+    
+    <!--Pretty lame name for this. Oh well.-->
+    
+    <!--READ THIS IMPORTANT INFORMATION.-->
+    
+    <!--The pixel size changing function doesn't work.-->
+    
+    <!--Paste the save code into a new program if you would like whatever you made saved.-->
+    
+    <!--You must manually add the values of "pixelSize", "canvas.width", "canvas.height", and "saveArray" variables. If you scroll to the bottom of the save code, you'll find those values there.-->
+    
+    <!--You could also just right click the canvas and save the image.-->
+    
+    <head>
+        <title>Pixel Thing</title>
+    <meta charset = "utf-8">
+        <style>
+        body {
+            background-color: black;
+            color: white;
+            }
+        #save-data {
+            min-width: 200px;
+            min-height: 50px;
+            max-width: 200px;
+            max-width: 50px;
+            display: none;
+            }    
+        #values {
+            min-width: 600px;
+            min-height: 200px;
+            max-width: 600px;
+            max-width: 200px;
+            }
+        #array-enter {
+            min-width: 200px;
+            min-height: 200px;
+            max-width: 200px;
+            max-height: 200px;
+            }
+        #settings {
+            height: 200px;
+            width: 300px;
+            padding: 20px 20px 20px 20px;
+            border: 10px solid darkgray;
+            background-color: darkslategray;
+            }
+        #color-settings {
+            height: 200px;
+            width: 300px;
+            padding: 20px 20px 20px 20px;
+            border: 10px solid darkgray;
+            background-color: darkslategray;
+            }
+        #current-color {
+            border: 2px solid white;
+            padding: 20px;
+            }
+         canvas {
+             float: top;
+            }    
+        </style>
+    </head>
+    <body>
+        <canvas id = "draw"></canvas>
+        <br>
+        
+        <!--pixel color input-->
+        
+        <div id = "color-settings">
+            <div id = "current-color"></div>    
+            Use color picker: <input id = "colorPicker" type = "color" placeholder = "color">
+            <button id = "colorPickerButton">Set Pixel Color</button>
+            <br>
+            Or input color name: <input id = "colorInput" placeholder = "color">
+            <button id = "colorButton">Set Pixel Color</button>
+            <br>
+            <button id = "eyedropButton">Eyedropper</button>
+            <br>
+            <button id = "eraserButton">Eraser</button>
+            
+            <!-- clear canvas button-->
+        
+            <button id = "clearButton">Clear Canvas</button>
+            <br><br>
+       
+        </div>    
+        <br>
+            
+        <!--grid background-->
+        <div id = "settings">
+            Grid: <input type = "checkbox" id = "gridToggle" checked>
+            <button id = "applyButton">Apply settings</button>
+            <br>
+        
+        <!--canvas size inputs-->
+        
+            <input id = "sizeInputWidth" type = "number" min = "1" placeholder = "Canvas width">
+            <input id = "sizeInputHeight" type = "number" min = "1" placeholder = "Canvas height">
+            <button id = "sizeButton">Set Size</button>
+            <br>
+        
+        <!--pixel size input-->
+        
+            Set the pixel size: <input id = "pixelInput" type = "number" min = "1" placeholder = "Pixel size">
+            <button id = "pixelButton">Set Size</button>
+        </div>
+        <br>
+        
+            <!--enter an array-->
+        
+            <textarea type = "text" placeholder = "enter array" id = "array-enter"></textarea>
+            <br>
+            <button id = "loadArrayButton">Load Array</button>
+            <br>
+            <br>
+        
+            <!--get the save code-->
+            <button id = "saveButton">Save</button>
+            <br>
+        <textarea id = "save-data" readonly>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+    </head>
+    <body>
+        <canvas id = "ARRAY-CANVAS"></canvas>
+    <body>
+    <script>
+        function DRAWTHEARRAY() {
+            var canvas = document.getElementById("ARRAY-CANVAS");
+            var ctx = canvas.getContext("2d");  
+            canvas.width =  canvas.width //change this value
+            canvas.height = canvas.height //change this value
+            var pixelSize = pixelSize //change this value
+            var saveArray = JSON.stringify(drawing) //chane this value
+            var xPos = 0;
+            var yPos = 0;
+            for(var i = 0; i < saveArray.length; i++) {
+                for(var j = 0; j < saveArray[i].length; j++) {
+                    if(typeof saveArray[i][j] == "string") {
+                        ctx.fillStyle = saveArray[i][j]; 
+                        ctx.fillRect(xPos, yPos, pixelSize, pixelSize)
+                    }
+                    xPos += pixelSize;
+                }
+                xPos = 0
+                yPos += pixelSize;
+            }
+        }
+        DRAWTHEARRAY();
+    </script>
+    </body>
+<html>
+        </textarea>
+        <br>
+        <textarea id = "values" placeholder = "Press save to get save code" readonly></textarea>
+        
+    <script>
+    var canvas = document.getElementById("draw");
+    var ctx = canvas.getContext("2d");    
+    var pixelSize = 5;
+    var drawingWidth = 100;
+    var drawingHeight = 100;    
+    var color = "black";
+    var backCol = "white"
+    var backColTwo = "gray"
+    var grid = true;
+    
+    //current color   
+    function colorChange() {
+        var current = document.getElementById("current-color");
+        current.innerHTML = color;    
+        current.style.backgroundColor = color;
+    }
+    
+    //some more functions and variables
+        
+    function isOdd(num) { return (num % 2) == 1}    
+    
+    var drawing = [];
+    
+    //function that makes the canvas empty
+        
+    function drawBlank() {      
+        drawing = [];
+        for(var b = 0; b < drawingHeight; b++) {
+            drawing.push( [] );    
+        }
+        for(var b = 0; b < drawingHeight; b++) {
+                if(isOdd(b) == false) {
+                    drawing[b].push(0);
+                } else {
+                    drawing[b].push(1);
+                }
+            
+            for(var a = 0; a < drawingWidth - 1; a++) {
+                if(drawing[b][a] == 1) {     
+                    drawing[b].push(0);
+                } else {    
+                    drawing[b].push(1);
+                }     
+            }
+        }
+    } 
+        
+    //changes the canvas size
+        
+    function adjustCanvas() {
+        canvas.width = pixelSize * drawingWidth;
+        canvas.height = pixelSize * drawingHeight;
+    }
+    
+    //draw the pixels, including colors
+        
+    function draw() {    
+        var xPos = 0;
+        var yPos = 0;
+        for(var i = 0; i < drawing.length; i++) {
+            for(var j = 0; j < drawing[i].length; j++) {
+                if(drawing[i][j] == 0) {
+                    ctx.fillStyle = backCol;
+                    ctx.fillRect(xPos, yPos, pixelSize, pixelSize);
+                }
+                
+                if(drawing[i][j] == 1) {
+                    ctx.fillStyle = backColTwo;
+                    ctx.fillRect(xPos, yPos, pixelSize, pixelSize);
+                }
+                if(typeof drawing[i][j] == "string") {
+                ctx.fillStyle = drawing[i][j];
+                ctx.fillRect(xPos,yPos, pixelSize, pixelSize);
+                }
+            
+                xPos += pixelSize;
+            }
+            xPos = 0;
+            yPos += pixelSize;
+        }
+    } 
+        
+        //mouse up and down events
+        
+        var mouseIsDown = false;
+      
+        canvas.addEventListener("mousedown", function(){
+        	mouseIsDown = true; 
+        });
+        
+        canvas.addEventListener("mouseup", function() {
+            mouseIsDown = false; 
+        })
+        
+        //click events for the tools 
+        
+        function drawTools() {
+            colorPixel();
+            eraseFunc();
+            eyedropper();
+        }   
+        canvas.addEventListener("click", drawTools);
+        canvas.addEventListener("mousemove", function() {
+            if(mouseIsDown == true) {
+                drawTools();
+
+            }     
+        });
+        
+        //get the user mouse position
+        
+        function getMousePos(canvas, event) {
+                var rect = canvas.getBoundingClientRect();
+                return {
+           			x: (event.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
+       			    y: (event.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
+   		        }
+        };
+        
+        //change the color of a pixel
+        
+        function colorPixel() {
+            if(eraserOn == false && eyedropMode == false) {
+                var pos = getMousePos(canvas, event);
+                var posx = pos.x
+                var posy = pos.y
+                var arrX = Math.floor(posx/pixelSize);
+                var arrY = Math.floor(posy/pixelSize);
+                var arrXPos = arrX * pixelSize;
+                var arrYPos = arrY * pixelSize;
+            	drawing[arrY][arrX] = color;
+            }    
+        };
+        
+        //button variables
+        
+        var sizeButton = document.getElementById("sizeButton");
+        var clearButton = document.getElementById("clearButton");
+        var pixelButton = document.getElementById("pixelButton");
+        var colorButton = document.getElementById("colorButton");
+        var colorPickerButton = document.getElementById("colorPickerButton");
+        var saveButton = document.getElementById("saveButton");
+        var applyButton = document.getElementById("applyButton");
+        var eraserButton = document.getElementById("eraserButton");
+        var loadArrayButton = document.getElementById("loadArrayButton");
+        var eyedropButton = document.getElementById("eyedropButton");
+        
+        //adjust canvas size
+        
+        sizeButton.addEventListener("click", function() {
+             var x = confirm("Changing the canvas size will clear the canvas. Do you want to continue?")
+             if(x == true) {
+                var sizeInputWidth = document.getElementById("sizeInputWidth").value;
+                var sizeInputHeight = document.getElementById("sizeInputHeight").value;
+                drawingWidth = sizeInputWidth;
+                drawingHeight = sizeInputHeight;
+                drawBlank();
+             }    
+        });
+        
+        //clear the canvas
+        
+        clearButton.addEventListener("click", function() {
+            var x = confirm("Are you sure you want to clear the canvas?")    
+            if(x == true) {
+                drawBlank();
+            }
+        });    
+        
+        //set the pixel size
+        
+        pixelButton.addEventListener("click", function() {
+            
+        /*var pixelInput = document.getElementById("pixelInput").value;
+        pixelSize = pixelInput;   
+        adjustCanvas();
+        draw();*/       
+        });   
+        
+        //set pixel color
+        
+        //color name input
+        
+        colorButton.addEventListener("click", function() {
+            var colorInput = document.getElementById("colorInput").value;
+            color = colorInput;
+            eraserOn = false;
+            eyedropMode = false;
+            console.log(typeof drawing)
+        });
+        
+        //color picker
+        
+        colorPickerButton.addEventListener("click", function() {
+            var colorPicker = document.getElementById("colorPicker").value;
+            color = colorPicker
+            eraserOn = false;
+            eyeDropMode = false;
+        });
+        
+        //toggle the grid
+        
+        applyButton.addEventListener("click", function() {
+            var gridToggle = document.getElementById("gridToggle");
+            if(gridToggle.checked) {   
+                backCol = "white"
+                backColTwo = "gray"
+            } else {
+                backCol = "white"
+                backColTwo = "white"
+            }
+            draw();
+        });
+        
+        //eyedropper
+        
+        var eyedropMode = false;
+        var finalEyedropColor;
+        
+        eyedropButton.addEventListener("click", function() {
+            eyedropMode = true;  
+            color = "eyedropper"
+        });
+ 
+        function getPixelColor(x, y) {
+            var pos = getMousePos(canvas, event);
+             var posx = pos.x
+             var posy = pos.y
+             var arrX = Math.floor(posx/pixelSize);
+             var arrY = Math.floor(posy/pixelSize);
+             var arrXPos = arrX * pixelSize;
+             var arrYPos = arrY * pixelSize;
+            var pxData = ctx.getImageData(x, y, pixelSize, pixelSize);
+            return ("rgb(" + pxData.data[0] + "," + pxData.data[1] + "," + pxData.data[2] + ")");
+        }
+        function eyedropper() {
+            if(eyedropMode == true) {
+            var pos = getMousePos(canvas, event);
+            var posx = pos.x
+            var posy = pos.y
+            var arrX = Math.floor(posx/pixelSize);
+            var arrY = Math.floor(posy/pixelSize);
+            var arrXPos = arrX * pixelSize;
+            var arrYPos = arrY * pixelSize;
+            color = getPixelColor(arrXPos, arrYPos);
+            eyedropMode = false;
+            }    
+        }    
+        
+        //eraser
+        
+        var eraserOn = false;
+        eraserButton.addEventListener("click", function() {
+            eraserOn = true;
+            color = "Eraser"
+        });
+        function eraseFunc() {
+            var pos = getMousePos(canvas, event);
+            var posx = pos.x
+            var posy = pos.y
+            var arrX = Math.floor(posx/pixelSize);
+            var arrY = Math.floor(posy/pixelSize);
+            var arrXPos = arrX * pixelSize;
+            var arrYPos = arrY * pixelSize;
+            if(eraserOn == true) {
+                if(isOdd(arrYPos) == true) {
+                    if(isOdd(arrXPos) == true) {
+                        drawing[arrY][arrX] = 0;
+                    } else {
+                        drawing[arrY][arrX] = 1;
+                    }
+                } else {
+                    if(isOdd(arrXPos) == true) {
+                        drawing[arrY][arrX] = 1;    
+                    } else {
+                        drawing[arrY][arrX] = 0;
+                    }                  
+                }
+            }    
+        }
+        
+        //load
+        
+        loadArrayButton.addEventListener("click", function() {
+             var x = confirm("Loading this array will clear your current work. Do you want to continue?")    
+            if(x == true) {
+                    var arrayInput = document.getElementById("array-enter").value;
+                    drawBlank();
+                    var parsedInput = JSON.parse(arrayInput)
+                    drawing = parsedInput;
+                    drawingWidth = drawing[0].length
+                    drawingHeight = drawing.length;
+                    adjustCanvas();
+                    draw();
+            }
+        });
+        
+        //save
+        
+        saveButton.addEventListener("click", function() {
+            var values = document.getElementById("values");
+            var saveDataVal = document.getElementById("save-data").value;
+
+            values.innerHTML = saveDataVal + "\n pixelSize = " + pixelSize + "\n canvas.width = " + canvas.width + "\n canvas.height = " + canvas.height + "\n saveArray = " + JSON.stringify(drawing)  
+
+        });    
+        
+        //loop
+        
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            adjustCanvas();
+            draw();
+            colorChange();
+        }
+        setInterval(loop, 150);
+        drawBlank();
+        
+    </script>
+    </body>
+</html>    
